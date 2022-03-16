@@ -1,0 +1,28 @@
+<form #f="ngForm" (ngSubmit)="update()">
+<div  [style.border]="completed ? '2px solid lightgreen': '2px solid red'" >
+ Name: <input type="text" required  [(ngModel)]="userData.name"  value="{{userData?.name}}" name="userName" #name>   <br>
+ Email: <input type="text" required [(ngModel)]="userData.email" value="{{userData?.email}}" name="userEmail" #email>   <br>
+<div class="userData">
+    <br>
+<button (mouseenter)="otherData=true" (click)="otherData=false" >Other data</button> <br><br>
+<div *ngIf="otherData" class="userData" style="border: 2px solid black;">
+Street: <input type="text" required [(ngModel)]="userData.street" value="{{userData?.street}}" name="userStreet" #street>  <br>
+City: <input type="text" required [(ngModel)]="userData.city" value="{{userData?.city}}" name="userCity" #city>  <br>
+zipcode: <input type="text" required [(ngModel)]="userData.zipcode" value="{{userData?.zipcode}}" name="userZipcode" #zipcode>  <br>
+</div>
+</div>
+<br>
+<div class="upAndDel">
+    <input type="submit" value="Update">
+<div *ngIf="!f.valid && f.touched">Both fields are mandatory</div>
+<input type="button" value="Delete" (click)="delete()" >
+</div>
+</div>
+</form>
+
+
+
+<br>
+
+    
+
