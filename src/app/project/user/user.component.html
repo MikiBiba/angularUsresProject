@@ -17,8 +17,19 @@ zipcode: <input type="text" required [(ngModel)]="userData.zipcode" value="{{use
 <div *ngIf="!f.valid && f.touched">Both fields are mandatory</div>
 <input type="button" value="Delete" (click)="delete()" >
 </div>
+
 </div>
 </form>
+
+<a  [routerLink]="['tasks', userData._id]">user's tasks</a>
+
+<div>
+
+    
+
+</div>
+
+
 
 
 
