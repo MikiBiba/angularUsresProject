@@ -2,8 +2,7 @@
 
 Serach: <input type="text" #srch name="search" (keyup)="search(srch.value)" >
 <br><br>
+
 <app-user  [userData]="user"  *ngFor="let user of filteredUsers"></app-user>
-
-
 
 <br>

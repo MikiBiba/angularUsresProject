@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { subscribeOn, Subscription } from 'rxjs';
 import { User } from '../user';
 import { Task } from '../task';
 import { UtilsService } from '../utils.service';
@@ -13,11 +13,13 @@ import { Post } from '../post';
 })
 export class TasksComponent implements OnInit {
 
-  constructor(private ar : ActivatedRoute, private srv : UtilsService) { }
+  constructor(private ar : ActivatedRoute, private srv : UtilsService, private utils : UtilsService) { }
 
-  param : string = '';
+  idParam : string = '';
 
   subParams : Subscription = new Subscription();
+
+  subUpdateTask : Subscription = new Subscription();
 
   subTask : Subscription = new Subscription();
 
@@ -27,15 +29,25 @@ export class TasksComponent implements OnInit {
 
   posts : Post[] = [{id:0, title:'', body:''}];
 
+  complete(id :  number) {
+  this.tasks.map(task => {
+    if (task.id == id) {
+      task.completed = true;
+    }
+  })
+  this.subUpdateTask = this.srv.updateUserTodos(this.idParam, this.tasks)
+  .subscribe(() => {});
+}
+
   ngOnInit(): void {
   this.subParams =  this.ar.params.subscribe(params => {
         let id = params['id'];
-        this.param = id;
+        this.idParam = id;
 
-        this.subTask  = this.srv.getUser(this.param).subscribe((data:User) => {
+        this.subTask  = this.srv.getUser(this.idParam).subscribe((data:User) => {
           this.tasks = data.tasks; 
         });
-        this.subPost  = this.srv.getUser(this.param).subscribe((data:User) => {
+        this.subPost  = this.srv.getUser(this.idParam).subscribe((data:User) => {
           this.posts = data.posts; 
         });
     });
@@ -44,6 +56,7 @@ export class TasksComponent implements OnInit {
   ngOnDestroy() {
     this.subParams.unsubscribe();
     this.subPost.unsubscribe();
+    this.subUpdateTask.unsubscribe();
   }
 
 }

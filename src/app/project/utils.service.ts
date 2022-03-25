@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from './user';
+import { Task } from './task';
 
 @Injectable({
   providedIn: 'root'
@@ -21,9 +22,12 @@ export class UtilsService {
     return this.http.put("http://localhost:8002/api/users/" + id, obj);
   }
 
-  deleteUser(id : string) { 
-    return this.http.delete("http://localhost:8002/api/users/" + id);
+  updateUserTodos(id : string, obj : Task[]) {
+    let tasks = { "tasks" : obj };
+    return this.http.put("http://localhost:8002/api/users/" + id, tasks);
   }
 
-  
+  deleteUser(id : string) { 
+    return this.http.delete("http://localhost:8002/api/users/" + id);
+  } 
 }

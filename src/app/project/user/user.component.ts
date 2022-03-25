@@ -1,5 +1,6 @@
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from '../user';
 import { UtilsService } from '../utils.service';
@@ -11,13 +12,15 @@ import { UtilsService } from '../utils.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(private srv : UtilsService) { }
+  constructor(private srv : UtilsService, private router : Router) { }
 
   subUpdate : Subscription = new Subscription();
 
   subDelete : Subscription = new Subscription();
 
   completed : boolean = true;
+
+  click : boolean = false;
 
   otherData : boolean = false; 
   
@@ -30,6 +33,11 @@ export class UserComponent implements OnInit {
     this.subUpdate = this.srv.updateUser(this.userData._id, this.userData).subscribe(() => {
       alert("Update!");
     })
+  }
+
+  controlClick() {
+    this.click = !this.click;
+    this.router.navigate(['tasks/' + this.userData._id])
   }
 
   delete() {
