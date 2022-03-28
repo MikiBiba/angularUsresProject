@@ -16,7 +16,9 @@ export class NewPostComponent implements OnInit {
 
   subParams : Subscription  = new Subscription();
 
-  subPost : Subscription = new Subscription();
+  subPosts : Subscription = new Subscription();
+
+  subPost : Subscription  = new Subscription();
 
   idParam : string = '';
 
@@ -24,20 +26,42 @@ export class NewPostComponent implements OnInit {
 
   posts : Post[] = [{id:0, title:'', body:''}];
 
+  postId : number = 5;
+
+  setId = () => {
+    this.postId = this.postId++
+    return this.postId
+  }
+
   create(title: string, body: string) {
-    let newPost = {title: title, body: body};
-    
+    this.post.body = body;
+    this.post.title = title;
+    this.post.id = this.setId();  
+
+    this.posts = [...this.posts, this.post];
+
+    this.subPost = this.srv.updateUserPosts(this.idParam, this.posts)
+  .subscribe((data) => {console.log(data)});
+
+  console.log(this.posts);
+  console.log(this.idParam)
   }
 
   ngOnInit(): void {
     this.subParams =  this.ar.params.subscribe(params => {
       this.idParam = params["id"];
 
-      this.subPost  = this.srv.getUser(this.idParam).subscribe((data:User) => {
+      this.subPosts  = this.srv.getUser(this.idParam).subscribe((data:User) => {
         this.posts = data.posts; 
 
-        console.log(this.posts)
       });
     })
+  }
+
+
+  ngOnDestroy() {
+    this.subParams.unsubscribe();
+    this.subPost.unsubscribe();
+    this.subPosts.unsubscribe();
   }
 }
