@@ -11,13 +11,15 @@ import { MainComponent } from './project/main/main.component';
 import { UsersComponent } from './project/users/users.component';
 import { UserComponent } from './project/user/user.component';
 import { TasksComponent } from './project/tasks/tasks.component';
-import { PostsComponent } from './project/posts/posts.component';
+import { NewTaskComponent } from './project/new-task/new-task.component';
+import { NewPostComponent } from './project/new-post/new-post.component';
 
 const appRoutes : Routes = [ {path : "main", component : MainComponent},
                              {path : "users", component : UsersComponent},
                              {path: "user", component: UserComponent},
                              {path: "tasks/:id", component: TasksComponent},
-                             {path: "posts", component: PostsComponent},
+                             {path: "newPost/:id", component: NewPostComponent},
+                             {path: "newTask/:id", component: NewTaskComponent},
                             ]   
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ const appRoutes : Routes = [ {path : "main", component : MainComponent},
     UsersComponent,
     UserComponent,
     TasksComponent,
-    PostsComponent,
+    NewTaskComponent,
+    NewPostComponent,
   ],
   imports: [
     BrowserModule,

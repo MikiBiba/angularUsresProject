@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { subscribeOn, Subscription } from 'rxjs';
 import { User } from '../user';
 import { Task } from '../task';
@@ -13,7 +13,10 @@ import { Post } from '../post';
 })
 export class TasksComponent implements OnInit {
 
-  constructor(private ar : ActivatedRoute, private srv : UtilsService, private utils : UtilsService) { }
+  constructor(private ar : ActivatedRoute,
+     private srv : UtilsService,
+     private utils : UtilsService,
+     private router : Router) { }
 
   idParam : string = '';
 
@@ -37,6 +40,14 @@ export class TasksComponent implements OnInit {
   })
   this.subUpdateTask = this.srv.updateUserTodos(this.idParam, this.tasks)
   .subscribe(() => {});
+}
+
+addPost() {
+this.router.navigate(["newPost/" + this.idParam]);
+}
+
+addTask() {
+  this.router.navigate(["newTask/" + this.idParam]);
 }
 
   ngOnInit(): void {
