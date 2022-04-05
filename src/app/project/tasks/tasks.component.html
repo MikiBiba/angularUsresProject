@@ -24,9 +24,36 @@ Posts <input type="button" (click)="addPost()" value="Add">
 </div>
 
 <div [style.display]="postClicked ? 'block' : 'none'" >
- <app-new-post [userId]="userId" ></app-new-post>
+    <form #f="ngForm" (ngSubmit)="createPost(title.value, body.value)">
+        <div style="border: 2px solid black; width: 250px; height: 200px;" > <br>
+        Add new post to user! <br> <br><br>
+        
+        Title: <input type="text" name="title" #title> <br> <br>
+        Body: <input type="text" name="body" #body> <br><br>
+        
+        <div class="upAndDel">
+            <input type="submit" value="Add">{{"    "}}{{"    "}}
+        <input type="button" value="Cancel" (click)="cancelPost()"> 
+
+        <div *ngIf="!f.valid && f.touched">Both fields are mandatory</div>
+        </div>
+        </div>
+        </form>
 </div>
 
 <div [style.display]="taskClicked ? 'block' : 'none'" >
-    <app-new-task></app-new-task>
+    <form #f="ngForm" (ngSubmit)="createTask(title.value)">
+        <div style="border: 2px solid black; width: 250px; height: 200px;" > <br>
+        Add new task to user! <br> <br><br>
+        
+        Title: <input type="text" name="title" #title> <br> <br>
+        
+        <div class="upAndDel">
+            <input type="submit" value="Add">{{"    "}}{{"    "}}
+            <input type="button" value="Cancel" (click)="cancelTask()" >
+
+        <div *ngIf="!f.valid && f.touched">Both fields are mandatory</div>
+        </div>
+        </div>
+        </form>
 </div>

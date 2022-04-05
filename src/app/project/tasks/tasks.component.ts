@@ -30,7 +30,11 @@ export class TasksComponent implements OnInit {
 
   subPost: Subscription = new Subscription();
 
+  task: Task = { id: 0, title: '', completed: false };
+
   tasks: Task[] = [{ id: 0, title: '', completed: true }];
+
+  post: Post = { id: 0, title: '', body: '' };
 
   posts: Post[] = [{ id: 0, title: '', body: '' }];
 
@@ -52,15 +56,45 @@ export class TasksComponent implements OnInit {
     this.postClicked = !this.postClicked;
   }
 
+  cancelPost() {
+    this.postClicked = false;
+  }
+
+  cancelTask() {
+    this.taskClicked = false;
+  }
+
   addTask() {
     this.taskClicked = !this.taskClicked;
   }
 
+  createPost(title: string, body: string) {
+    this.post.body = body;
+    this.post.title = title;
+    this.posts = [...this.posts, this.post];
+    this.subPost = this.srv
+      .updateUserPosts(this.userId, this.posts)
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+
+  createTask(title: string) {
+    this.task.completed = false;
+    this.post.title = title;
+    this.tasks = [...this.tasks, this.task];
+    this.subPost = this.srv
+      .updateUserPosts(this.userId, this.posts)
+      .subscribe((data) => {
+        console.log(data);
+      });
+  }
+
   ngOnInit(): void {
-    this.subTask  = this.srv.getUser(this.userId).subscribe((data:User) => {
+    this.subTask = this.srv.getUser(this.userId).subscribe((data: User) => {
       this.tasks = data.tasks;
     });
-    this.subPost  = this.srv.getUser(this.userId).subscribe((data:User) => {
+    this.subPost = this.srv.getUser(this.userId).subscribe((data: User) => {
       this.posts = data.posts;
     });
   }
