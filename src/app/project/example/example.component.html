@@ -1,6 +1,6 @@
-<div [style.display]="postClicked || taskClicked ? 'none' : 'block'" style="border: 2px solid black;">
+<div style="border: 2px solid black;">
     <div >
-Todos <input type="button" (click)="addTask()" value="Add">
+Todos <input  type="button" (click)="addTask()" value="Add">
 <ul>
     <li *ngFor="let task of tasks">
         <div style="border: 1px solid purple;">
@@ -24,7 +24,7 @@ Posts <input type="button" (click)="addPost()" value="Add">
 </div>
 
 <div [style.display]="postClicked ? 'block' : 'none'" >
- <app-new-post [userId]="userId" ></app-new-post>
+ <app-new-post></app-new-post>
 </div>
 
 <div [style.display]="taskClicked ? 'block' : 'none'" >

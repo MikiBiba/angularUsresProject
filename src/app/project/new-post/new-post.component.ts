@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Post } from '../post';
@@ -16,11 +16,14 @@ export class NewPostComponent implements OnInit {
 
   subParams : Subscription  = new Subscription();
 
+  @Input() 
+  userId : string = '';
+
   subPosts : Subscription = new Subscription();
 
   subPost : Subscription  = new Subscription();
 
-  idParam : string = '';
+  backToTasks : boolean = false;
 
   post : Post = {id:0, title:'', body:''};
 
@@ -28,34 +31,25 @@ export class NewPostComponent implements OnInit {
 
   postId : number = 5;
 
-  setId = () => {
-    this.postId = this.postId++
-    return this.postId
-  }
-
   create(title: string, body: string) {
     this.post.body = body;
     this.post.title = title;
-    this.post.id = this.setId();  
+    // this.post.id = this.setId();  
 
     this.posts = [...this.posts, this.post];
 
-    this.subPost = this.srv.updateUserPosts(this.idParam, this.posts)
+    this.subPost = this.srv.updateUserPosts(this.userId, this.posts)
   .subscribe((data) => {console.log(data)});
 
   console.log(this.posts);
-  console.log(this.idParam)
+  console.log(this.userId)
   }
 
   ngOnInit(): void {
-    this.subParams =  this.ar.params.subscribe(params => {
-      this.idParam = params["id"];
-
-      this.subPosts  = this.srv.getUser(this.idParam).subscribe((data:User) => {
+      this.subPosts  = this.srv.getUser(this.userId).subscribe((data:User) => {
         this.posts = data.posts; 
-
-      });
     })
+    console.log(this.userId)
   }
 
 

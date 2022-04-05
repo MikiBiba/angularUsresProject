@@ -26,7 +26,6 @@ export class UsersComponent implements OnInit {
     this.filteredUsers = this.users.filter(user => user.name.startsWith(str) || user.email.startsWith(str))
   }
 
-
   ngOnInit(): void {
     this.sub = this.utils.getUsers().subscribe((data:User[]) => {
       this.users = data;
@@ -37,5 +36,4 @@ export class UsersComponent implements OnInit {
   ngOnDestroy() {
     this.subCreate.unsubscribe();
   }
-
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { UtilsService } from '../utils.service';
 
 @Component({
   selector: 'app-main',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
 
-  constructor() { }
+  constructor(private srv : UtilsService) { }
+
+  sub : Subscription = new Subscription();
 
   ngOnInit(): void {
+    this.sub = this.srv.getUsers().subscribe((data:any) => {
+    })
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

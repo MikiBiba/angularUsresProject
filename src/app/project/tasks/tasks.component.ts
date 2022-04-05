@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { subscribeOn, Subscription } from 'rxjs';
 import { User } from '../user';
@@ -9,58 +9,59 @@ import { Post } from '../post';
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.css']
+  styleUrls: ['./tasks.component.css'],
 })
 export class TasksComponent implements OnInit {
+  constructor(
+    private ar: ActivatedRoute,
+    private srv: UtilsService,
+    private router: Router
+  ) {}
 
-  constructor(private ar : ActivatedRoute,
-     private srv : UtilsService,
-     private utils : UtilsService,
-     private router : Router) { }
+  subParams: Subscription = new Subscription();
 
-  idParam : string = '';
+  subUpdateTask: Subscription = new Subscription();
 
-  subParams : Subscription = new Subscription();
+  postClicked: boolean = false;
 
-  subUpdateTask : Subscription = new Subscription();
+  taskClicked: boolean = false;
 
-  subTask : Subscription = new Subscription();
+  subTask: Subscription = new Subscription();
 
-  subPost : Subscription = new Subscription();
+  subPost: Subscription = new Subscription();
 
-  tasks : Task[] = [{id:0, title:'', completed:true}];
+  tasks: Task[] = [{ id: 0, title: '', completed: true }];
 
-  posts : Post[] = [{id:0, title:'', body:''}];
+  posts: Post[] = [{ id: 0, title: '', body: '' }];
 
-  complete(id :  number) {
-  this.tasks.map(task => {
-    if (task.id == id) {
-      task.completed = true;
-    }
-  })
-  this.subUpdateTask = this.srv.updateUserTodos(this.idParam, this.tasks)
-  .subscribe(() => {});
-}
+  @Input()
+  userId: string = '';
 
-addPost() {
-this.router.navigate(["newPost/" + this.idParam]);
-}
+  complete(id: number) {
+    this.tasks.map((task) => {
+      if (task.id == id) {
+        task.completed = true;
+      }
+    });
+    this.subUpdateTask = this.srv
+      .updateUserTodos(this.userId, this.tasks)
+      .subscribe(() => {});
+  }
 
-addTask() {
-  this.router.navigate(["newTask/" + this.idParam]);
-}
+  addPost() {
+    this.postClicked = !this.postClicked;
+  }
+
+  addTask() {
+    this.taskClicked = !this.taskClicked;
+  }
 
   ngOnInit(): void {
-  this.subParams =  this.ar.params.subscribe(params => {
-        let id = params['id'];
-        this.idParam = id;
-
-        this.subTask  = this.srv.getUser(this.idParam).subscribe((data:User) => {
-          this.tasks = data.tasks; 
-        });
-        this.subPost  = this.srv.getUser(this.idParam).subscribe((data:User) => {
-          this.posts = data.posts; 
-        });
+    this.subTask  = this.srv.getUser(this.userId).subscribe((data:User) => {
+      this.tasks = data.tasks;
+    });
+    this.subPost  = this.srv.getUser(this.userId).subscribe((data:User) => {
+      this.posts = data.posts;
     });
   }
 
@@ -69,5 +70,4 @@ addTask() {
     this.subPost.unsubscribe();
     this.subUpdateTask.unsubscribe();
   }
-
 }

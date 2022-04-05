@@ -1,18 +1,11 @@
+Serach: <input type="text" #srch name="search" (keyup)="search(srch.value)" />
 
+<br />
+<input type="button" value="Add User" />
 
-Serach: <input type="text" #srch name="search" (keyup)="search(srch.value)" >
+<br />
 
-<br>
-<input type="button" value="Add User" >
+<app-user [userData]="user" *ngFor="let user of filteredUsers"></app-user>
 
-<br>
-
-<app-user  [userData]="user"  *ngFor="let user of filteredUsers"></app-user>
-
-<div *ngIf="clicked==true"  >
-    Creating user
-</div>
-
-
-
-<br>
+<div *ngIf="clicked == true">Creating user</div>
+<br />
