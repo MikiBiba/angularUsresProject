@@ -4,18 +4,15 @@ import { MainComponent } from './project/main/main.component';
 import { UsersComponent } from './project/users/users.component';
 import { UserComponent } from './project/user/user.component';
 import { TasksComponent } from './project/tasks/tasks.component';
-import { NewPostComponent } from './project/new-post/new-post.component';
 
 const routes: Routes = [
-                              {path : "main", component : MainComponent},
-                             {path : "users", component : UsersComponent},
-                             {path: "user", component: UserComponent},
-                             {path:"tasks/:id", component:TasksComponent},
-                             {path: "newPost/:id", component: NewPostComponent},
+  { path: 'main', component: MainComponent },
+  { path: 'users', component: UsersComponent },
+  { path: 'user', component: UserComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

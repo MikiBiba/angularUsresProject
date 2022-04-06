@@ -33,20 +33,19 @@
 </div>
 
 <div [style.display]="postClicked ? 'block' : 'none'">
-  <form #f="ngForm" (ngSubmit)="createPost(title.value, body.value)">
+  <form #f="ngForm" (ngSubmit)="createPost(postTitle.value, body.value)">
     <div style="border: 2px solid black; width: 250px; height: 200px">
       <br />
       Add new post to user! <br />
       <br /><br />
 
-      Title: <input type="text" name="title" #title /> <br />
+      Title: <input type="text" name="title" #postTitle /> <br />
       <br />
       Body: <input type="text" name="body" #body /> <br /><br />
 
       <div class="upAndDel">
-        <input type="submit" value="Add New"/>{{ "    " }}{{ "    " }}
-        <input type="button" value="Cancel" (click)="postClicked = false" />
-
+        <input type="button" value="Cancel" (click)="postClicked = false" />{{ "    " }}{{ "    " }}
+        <input type="submit" value="Add New"/>
         <div *ngIf="!f.valid && f.touched">Both fields are mandatory</div>
       </div>
     </div>
@@ -54,19 +53,18 @@
 </div>
 
 <div [style.display]="taskClicked ? 'block' : 'none'">
-  <form #f="ngForm" (ngSubmit)="createTask(title.value)">
+  <form #f="ngForm" (ngSubmit)="createTask(taskTitle.value)">
     <div style="border: 2px solid black; width: 250px; height: 200px">
       <br />
       Add new task to user! <br />
       <br /><br />
 
-      Title: <input type="text" name="title" #title /> <br />
+      Title: <input type="text" name="taskTitle" #taskTitle /> <br />
       <br />
 
       <div class="upAndDel">
-        <input type="submit" value="Add New"/>{{ "    " }}{{ "    " }}
-        <input type="button" value="Cancel" (click)="taskClicked = false" />
-
+        <input type="button" value="Cancel" (click)="taskClicked = false" />{{ "    " }}{{ "    " }}
+        <input type="submit" value="Add New"/>
         <div *ngIf="!f.valid && f.touched">Both fields are mandatory</div>
       </div>
     </div>
