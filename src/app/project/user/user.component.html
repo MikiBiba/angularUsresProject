@@ -2,12 +2,25 @@
   <div
     [style.backgroundColor]="click ? '#fcbf49' : 'white'"
     (click)="controlClick()"
-    [style.border]="completed ? '3px solid lightgreen' : '3px solid red'">
-    Name:<input type="text" required [(ngModel)]="userData.name" value="{{ userData?.name }}" name="userName"
-      #name/>
+    [style.border]="completed ? '3px solid lightgreen' : '3px solid red'"
+  >
+    Name:<input
+      type="text"
+      required
+      [(ngModel)]="userData.name"
+      value="{{ userData?.name }}"
+      name="userName"
+      #name
+    />
     <br />
-    Email:<input type="text" required [(ngModel)]="userData.email" value="{{ userData?.email }}" 
-    name="userEmail" #email/>
+    Email:<input
+      type="text"
+      required
+      [(ngModel)]="userData.email"
+      value="{{ userData?.email }}"
+      name="userEmail"
+      #email
+    />
     <br />
     <div class="userData">
       <br />

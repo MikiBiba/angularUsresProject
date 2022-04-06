@@ -66,21 +66,20 @@ export class TasksComponent implements OnInit {
     this.posts = [...this.posts, this.post];
     this.subPost = this.srv
       .updateUserPosts(this.userId, this.posts)
-      .subscribe((data) => {
-      });
-      alert("Post created!");
-      this.postClicked = false;
-    }
+      .subscribe((data) => {});
+    alert('Post created!');
+    this.postClicked = false;
+  }
 
   createTask(title: string) {
     this.task.completed = false;
     this.task.title = title;
     this.tasks = [...this.tasks, this.task];
-    this.subTask = this.srv.updateUserTodos(this.userId, this.tasks)
-      .subscribe((data) => {
-      });
-      alert("Task created!");
-      this.taskClicked = false;
+    this.subTask = this.srv
+      .updateUserTodos(this.userId, this.tasks)
+      .subscribe((data) => {});
+    alert('Task created!');
+    this.taskClicked = false;
   }
 
   ngOnInit(): void {

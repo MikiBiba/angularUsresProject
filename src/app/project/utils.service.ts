@@ -29,12 +29,12 @@ export class UtilsService {
   }
 
   updateUserTodos(id: string, obj: Task[]) {
-    let tasks = { "tasks": obj };
+    let tasks = { tasks: obj };
     return this.http.put(`${this.url}/${id}`, tasks);
   }
 
   updateUserPosts(id: string, obj: Post[]) {
-    let posts = { "posts": obj };
+    let posts = { posts: obj };
     return this.http.put(`${this.url}/${id}`, posts);
   }
 

@@ -44,8 +44,10 @@
       Body: <input type="text" name="body" #body /> <br /><br />
 
       <div class="upAndDel">
-        <input type="button" value="Cancel" (click)="postClicked = false" />{{ "    " }}{{ "    " }}
-        <input type="submit" value="Add New"/>
+        <input type="button" value="Cancel" (click)="postClicked = false" />{{
+          "    "
+        }}{{ "    " }}
+        <input type="submit" value="Add New" />
         <div *ngIf="!f.valid && f.touched">Both fields are mandatory</div>
       </div>
     </div>
@@ -63,8 +65,10 @@
       <br />
 
       <div class="upAndDel">
-        <input type="button" value="Cancel" (click)="taskClicked = false" />{{ "    " }}{{ "    " }}
-        <input type="submit" value="Add New"/>
+        <input type="button" value="Cancel" (click)="taskClicked = false" />{{
+          "    "
+        }}{{ "    " }}
+        <input type="submit" value="Add New" />
         <div *ngIf="!f.valid && f.touched">Both fields are mandatory</div>
       </div>
     </div>
