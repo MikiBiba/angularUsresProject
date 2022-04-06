@@ -5,41 +5,40 @@ import { Task } from './task';
 import { Post } from './post';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UtilsService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http : HttpClient) { }
-
-  url = "http://localhost:8002/api/users";
+  url = 'http://localhost:8002/api/users';
 
   getUsers() {
-     return this.http.get<User[]>(this.url);
+    return this.http.get<User[]>(this.url);
   }
 
-  getUser(id : string) {
+  getUser(id: string) {
     return this.http.get<User>(`${this.url}/${id}`);
   }
 
-  createUser(obj : {name: string, email: string}) {
+  createUser(obj: { name: string; email: string }) {
     return this.http.post(this.url, obj);
   }
 
-  updateUser(id : string, obj : User) {
-    return this.http.put(`${this.url}/${id}`,`${obj}`);
+  updateUser(id: string, obj: User) {
+    return this.http.put(`${this.url}/${id}`, `${obj}`);
   }
 
-  updateUserTodos(id : string, obj : Task[]) {
-    let tasks = { "tasks" : obj };
+  updateUserTodos(id: string, obj: Task[]) {
+    let tasks = { "tasks": obj };
     return this.http.put(`${this.url}/${id}`, `${tasks}`);
   }
 
-  updateUserPosts(id : string, obj : Post[]) {
-    let posts = { "posts" : obj };
-    return this.http.put(`${this.url}/${id}`, `${posts}`);
+  updateUserPosts(id: string, obj: Post[]) {
+    let posts = { "posts": obj };
+    return this.http.put(`${this.url}/${id}`, posts);
   }
 
-  deleteUser(id : string) { 
+  deleteUser(id: string) {
     return this.http.delete(`${this.url}/${id}`);
-  } 
+  }
 }
