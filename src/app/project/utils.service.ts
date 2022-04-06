@@ -21,7 +21,7 @@ export class UtilsService {
     return this.http.get<User>(`${this.url}/${id}`);
   }
 
-  createUser(obj : User) {
+  createUser(obj : {name: string, email: string}) {
     return this.http.post(this.url, obj);
   }
 

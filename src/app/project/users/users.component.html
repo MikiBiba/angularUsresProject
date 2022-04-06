@@ -1,17 +1,39 @@
 
 Serach: <input type="text" #srch name="search" (keyup)="search(srch.value)" />
 <br />
-<div *ngIf="clicked" style="width: 250px; height: 150px; border: 2px solid black; "  >
-<br><br>
-    Name: <input type="text"/>         <br><br>
-    Email: <input type="text"/>  
-<br><br>
-    <input type="button" value="Add">{{"  "}}
-    <input type="button" value="Cancel">
+<div [style.display]="clicked ? 'block' : 'none'" >
+    <form #f="ngForm" (ngSubmit)="createUser(name.value, email.value)">
+        <div style="border: 2px solid black; width: 250px; height: 200px;" > <br>
+        Create new User<br> <br><br>
+        
+        Name: <input type="text" name="name" #name required> <br> <br>
+        Email: <input type="text" name="email" #email required> <br> <br>
+        
+        <div class="upAndDel">
+            <input type="submit" value="Create">{{"    "}}{{"    "}}
+            <input type="button" value="Cancel" (click)="cancelCreate()" >
+
+        <div *ngIf="!f.valid && f.touched">Both fields are mandatory</div>
+        </div>
+        </div>
+        </form>
 </div>
-<input type="button" value="Add User" (click)="clicked = !clicked" />
+<input type="button" value="Add User" (click)="clicked = true"/>
 
 <br />
 
 <app-user [userData]="user" *ngFor="let user of filteredUsers"></app-user>
 <br />
+
+
+
+
+
+<!-- <div *ngIf="clicked" style="width: 250px; height: 150px; border: 2px solid black; "  >
+    <br><br>
+        Name: <input type="text"/>         <br><br>
+        Email: <input type="text"/>  
+    <br><br>
+        <input type="button" value="Add">{{"  "}}
+        <input type="button" value="Cancel">
+    </div> -->
