@@ -56,14 +56,6 @@ export class TasksComponent implements OnInit {
     this.postClicked = !this.postClicked;
   }
 
-  cancelPost() {
-    this.postClicked = false;
-  }
-
-  cancelTask() {
-    this.taskClicked = false;
-  }
-
   addTask() {
     this.taskClicked = !this.taskClicked;
   }
@@ -84,7 +76,6 @@ export class TasksComponent implements OnInit {
     this.task.completed = false;
     this.task.title = title;
     this.tasks = [...this.tasks, this.task];
-    console.log(this.tasks)
     this.subTask = this.srv.updateUserTodos(this.userId, this.tasks)
       .subscribe((data) => {
       });
